@@ -16,14 +16,6 @@ phases:
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
-      - echo Build completed on `date`
       - echo Pushing the Docker images to ECR...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Logging in to Docker Hub...
-      - echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USERNAME --password-stdin
-      - echo Tagging and pushing to Docker Hub...
-      - docker tag $REPOSITORY_URI:latest $DOCKERHUB_REPO:latest
-      - docker tag $REPOSITORY_URI:latest $DOCKERHUB_REPO:$IMAGE_TAG
-      - docker push $DOCKERHUB_REPO:latest
-      - docker push $DOCKERHUB_REPO:$IMAGE_TAG
